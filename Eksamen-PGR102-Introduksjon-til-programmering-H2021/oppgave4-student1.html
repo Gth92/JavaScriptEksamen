@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 4 - Bankuttak</title>
+</head>
+<body>
+    <h1>Minibank-simulator</h1>
+    <div>Passord
+    <input id = "password-input" type = "text">
+    <input id = "check-password-btn" type = "button" value = "Sjekk Passord">
+    </div>
+   
+
+    <p id = "saldo-p">Saldo på konto: </p>
+    <div id = "output-div"></div>
+    <div id="penge-div"></div>
+
+    <script>
+        var passwordInput = document.getElementById("password-input");
+        var withdrawInput = document.getElementById("withdraw-input");
+        var checkPasswordBtn = document.getElementById("check-password-btn");
+        var saldoP = document.getElementById("saldo-p");
+        var outputDiv = document.getElementById("output-div");
+        var pengeDiv = document.getElementById("penge-div");
+        var password = "321";
+        var bankBalance = 2000;
+        var amountOf500 = bankBalance / 500;
+
+        saldoP.innerHTML = `Saldo på konto: ${bankBalance}`;
+
+        for (var i = 0; i < amountOf500; i++){
+            pengeDiv.innerHTML += `<img src="images/fem-hundre-kroner.png" width="100px">`;
+        }
+
+        function checkPassword(){
+            if(passwordInput.value === password){
+                alert(`Du skrev inn riktig passord!Du har ${bankBalance}, hvor mye vil du ta ut?`); 
+                
+                var withdraw = prompt (`Du har ${bankBalance}på konto!`); 
+                
+                bankBalance -= withdraw;
+                amountOf500 = bankBalance / 500;
+                pengeDiv.innerHTML = "";
+                saldoP.innerHTML = `Saldo på konto: ${bankBalance}`;
+                for (var i = 0; i < amountOf500; i++){
+                    pengeDiv.innerHTML += `<img src="images/fem-hundre-kroner.png" width="100px">`;
+                }
+                alert(`Saldo etter uttak: ${bankBalance}`);
+            }else{
+                outputDiv.innerHTML += "Du tastet inn feil passord :(";
+            }
+        }
+     
+        checkPasswordBtn.onclick = checkPassword;
+
+
+    </script>
+</body>
+</html>

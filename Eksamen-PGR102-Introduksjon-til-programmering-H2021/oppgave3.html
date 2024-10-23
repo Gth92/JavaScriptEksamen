@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 3 - Middelalderbygninger</title>
+</head>
+<body>
+
+    <!-- Det er lov å endre/legge til HTML -->
+
+    <h1>Middelalderbygninger</h1>
+    <p>Lyst til å bo i en middelalderbygning? Vi har de beste middelalderbygningene! :)</p>
+
+    <input id="show-all-btn" type="button" value="Vis alle">
+
+    <hr>
+
+    <label>Minimum pris</label>
+    <input id= "minimum-price" type="number">
+    <label>Maksimum pris</label>
+    <input id= "maximum-price" type="number">
+    <input id = "price-btn" type="button" value="Vis etter pris">
+
+    <hr>
+
+    <!-- Hint: Å hente value fra valgt <option> fungerer på samme måte som å hente value fra en tekstboks -->
+    <select id="category-select"><!-- Du endrer på options for å tilpasse til din løsning -->
+        <option>--Velg kategori--</option>
+        <option value="mini">Mini</option>
+        <option value="mellom">Mellom</option>
+        <option value="stor">Stor</option>
+    </select>
+    <input id="category-btn" type="button" value="Vis etter kategori">
+
+    <hr>
+
+    <div id="output-div">
+
+    </div>
+
+    <script>
+        var showAllBtn = document.getElementById("show-all-btn");
+        var minimumPrice = document.getElementById("minimum-price");
+        var maximumPrice = document.getElementById("maximum-price");
+        var priceBtn = document.getElementById("price-btn");
+        var categorySelect = document.getElementById("category-select");
+        var categoryBtn = document.getElementById("category-btn");
+        var outputDiv = document.getElementById("output-div");
+
+
+        var buildingArray = [
+            {
+                name: "Rosa brakke",
+                category:"mini",
+                image:"building-1.png",
+                price:5000,
+                
+            },
+            {
+                name: "Rosa brakke extra ",
+                category:"mini",
+                image:"building-2.png",
+                price:6000,
+                
+            },
+            {
+                name: "To etasjers-rosa brakke",
+                category:"mellom",
+                image:"building-3.png",
+                price:8000,
+                
+            },
+            {
+                name: "Lilla villa",
+                category:"mellom",
+                image:"building-4.png",
+                price:9000,
+                
+            },
+            {
+                name: "Rosa slott",
+                category:"stor",
+                image:"building-5.png",
+                price:12000,
+                
+            },
+            {
+                name: "Gule tårnet",
+                category:"stor",
+                image: "building-6.png",
+                price:15000,
+                
+            },
+        ];
+
+        function showAllBuilding (){
+            outputDiv.innerHTML = "";
+            for (var i = 0; i< buildingArray.length; i++){
+                outputDiv.innerHTML += `<article>
+                <h3>${buildingArray[i].name}</h3>
+                <img src = "images/${buildingArray[i].image}">;
+                <p>Kategori: ${buildingArray[i].category}</p>
+                <p>Pris: ${buildingArray[i].price}</p>
+                </article>`;
+            }  
+        }
+
+        function showByCategory(){
+            outputDiv.innerHTML = "";
+            
+            var categoryChosen = categorySelect.value; 
+            for(var i = 0; i < buildingArray.length; i++){
+                //Looper gjennom hele arrayen, men hvis den bygningen sin category er det samme som categoryChosen, da velger vi å printe ut.
+                if(buildingArray[i].category == categoryChosen){
+                    outputDiv.innerHTML += `<article>
+                    <h3>${buildingArray[i].name}</h3>
+                    <img src ="images/${buildingArray[i].image}">;
+                    <p>Kategori: ${buildingArray[i].category}</p>
+                    <p>Pris: ${buildingArray[i].price}</p>
+                    </article>`;
+                }
+            }
+        }
+
+        function showByPrice() {
+            outputDiv.innerHTML = "";
+            var minPrice = Number(minimumPrice.value);
+            var maxPrice = Number(maximumPrice.value);
+            
+            for(var i = 0; i < buildingArray.length; i++){
+                //Looper gjennom hele arrayen, men hvis bygningen sin pris er innenfor det valgte intervalet da printes den ut.
+                if(buildingArray[i].price > minPrice && buildingArray[i].price < maxPrice){
+                    outputDiv.innerHTML += `<article>
+                    <h3>${buildingArray[i].name}</h3>
+                    <img src ="images/${buildingArray[i].image}">;
+                    <p>Kategori: ${buildingArray[i].category}</p>
+                    <p>Pris: ${buildingArray[i].price}</p>
+                    </article>`;
+                }
+            }
+        }
+
+        showAllBtn.onclick = showAllBuilding;
+        categoryBtn.onclick = showByCategory;
+        priceBtn.onclick = showByPrice;
+    </script>
+
+</body>
+</html>

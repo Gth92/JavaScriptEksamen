@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 2 - Dragracing</title>
+    <link rel="stylesheet" href="css/oppgave2.css">
+</head>
+<body>
+
+    <h1>Dragracing</h1>
+
+
+    <div id="road-div"></div>
+    
+    <img id="blue-car" src="images/blue-car.png">
+    <img id="green-car" src="images/green-car.png">
+    <img id="red-car" src="images/red-car.png">
+
+    <div id="finish-line"></div>
+
+    <div id="output-div"></div>
+
+    <input type="button" id="start-btn" value="Start Race">
+    <script>
+        var roadDiv = document.getElementById("road-div");
+        var blueCar = document.getElementById("blue-car");
+        var greenCar = document.getElementById("green-car");
+        var redCar = document.getElementById("red-car");
+        var finishLine = document.getElementById("finish-line");
+        var outputDiv = document.getElementById("output-div"); 
+
+        var startBtn = document.getElementById("start-btn");
+
+        //Deklarerer posisjonen til bilene før bevegelsen starter.
+        var car1Left = 0;
+        var car2Left = 0;
+        var car3Left = 0;
+
+        var driveCars;
+
+        function startRace() {
+            //Gir alle bilene en tilfeldig verdi mellom 0-200;
+            var speedCar1 = Math.random() * 200;
+            var speedCar2 = Math.random() * 200;
+            var speedCar3 = Math.random() * 200;
+
+            //Setter inn verdiene i et setIntervalfunksjon med disse argumentene gitt på driveCars.
+            driveCars = setInterval(function() {carForward(speedCar1, speedCar2, speedCar3);}, 2000);
+        }
+        
+        function carForward(speedCar1, speedCar2, speedCar3){
+
+            car1Left += speedCar1;
+            car2Left += speedCar2;
+            car3Left += speedCar3;
+
+            //Endrer stylen dems for å skifte posisjon
+            blueCar.style.left = `${car1Left}px`;
+            greenCar.style.left = `${car2Left}px`;
+            redCar.style.left = `${car3Left}px`;
+            checkWinner();
+        }
+
+        function checkWinner(){
+            if(car1Left >= 700 || car2Left >= 700 || car3Left >= 700){
+
+                clearInterval(driveCars);
+
+                if(car1Left > car2Left && car1Left > car3Left){
+                    outputDiv.innerHTML = "blå bil vant!";
+                } else if(car2Left > car1Left && car2Left > car3Left){
+                    outputDiv.innerHTML = "grønn bil vant!";
+                } else {
+                    outputDiv.innerHTML = "rød bil vant!";
+                }
+            }
+        }
+
+        startBtn.onclick = startRace;
+    </script>
+
+</body>
+</html>

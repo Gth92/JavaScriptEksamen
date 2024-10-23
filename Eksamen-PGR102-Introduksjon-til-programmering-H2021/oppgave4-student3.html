@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 4 - Gjett ord</title>
+</head>
+<body>
+    <h1>Gjett ordet på et annet språk!</h1>
+    <p id="ord-box"></p>
+    <hr>
+    Skriv ordet på Tysk!: <input type="text" id="input-txt">
+    <hr>
+    <input type="button" id="input-btn" value="Sjekk Svar!">
+    <div id="output-div">Du har gjettet 0 riktige.</div>
+
+    <script>
+        var ordBox = document.getElementById("ord-box");
+        var inpTxt = document.getElementById("input-txt");
+        var inpBtn = document.getElementById("input-btn");
+        var outputDiv = document.getElementById("output-div");
+
+        //setter en start poengsum
+        var points = 0;
+
+        var ord = [{
+            norsk : "hest",
+            tysk : "pferd"
+        }, {
+            norsk : "øks",
+            tysk : "axt"
+        }, {
+            norsk : "ananas",
+            tysk : "ananas"
+        }, {
+            norsk : "pære",
+            tysk : "birne"
+        }, {
+            norsk : "tannkrem",
+            tysk : "zahnpasta"
+        }, {
+            norsk : "frosk",
+            tysk : "frosch"
+        }, {
+            norsk : "svart",
+            tysk : "schwarz"
+        }, {
+            norsk : "grønnsak",
+            tysk : "gemüse"
+        }, {
+            norsk : "røyk",
+            tysk : "rauch"
+        }, {
+            norsk : "gaffel",
+            tysk : "gabel"
+        }];
+
+        //Velger en random posisjon i arrayen med denne koden.
+        var randomNumber = Math.floor(Math.random() * ord.length);
+        ordBox.innerHTML = `Ordet er ${ord[randomNumber].norsk}`;
+
+        var currentWord = ord[randomNumber].tysk;
+
+        function checkWord() {
+
+            var userValue = inpTxt.value.toLowerCase();
+
+            if(userValue == currentWord){
+                points++;
+                outputDiv.innerHTML = `Du gjettet riktig! Din poengsum er ${points}`;
+            } else {
+                outputDiv.innerHTML = "Du gjettet feil :(";
+                points = 0;
+            }
+            var randomNumber = Math.floor(Math.random() * ord.length);
+            ordBox.innerHTML = `Ordet er ${ord[randomNumber].norsk}`;
+
+            if(points == 10){
+                alert("Du har gjettet alle ordene riktig!");
+                points = 0;
+            }
+            currentWord = ord[randomNumber].tysk;
+        }
+
+        inpBtn.onclick = checkWord;
+        
+    </script>
+</body>
+</html>
